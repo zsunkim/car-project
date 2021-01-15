@@ -39,5 +39,8 @@ Route::group(['prefix' => '/car'], function () {
     // 자동차 사고 등록 클릭
     Route::post('/{car_id}/accident', 'AccidentController@insertAccident');
 
+    // 자동차 사고 확인 페이지
+    Route::get('/{car_id}/accident/status', 'AccidentController@accidentDetail');
+
 });
 

@@ -34,8 +34,9 @@
                         @if(empty($detail_info->accident_id))
                             <a href="/car/{{ $detail_info->car_id }}/accident">사고이력 등록하기</a>
                         @else
-                            <label>사고이력</label>
-                            <input type="text" class='accident_status' name="accident_status" id="accident_status" value="{{ $detail_info->accident_status }}" readonly>
+                            {{-- <label>사고이력</label>
+                            <input type="text" class='accident_status' name="accident_status" id="accident_status" value="{{ $detail_info->accident_status }}" readonly> --}}
+                            <a href="/car/{{ $detail_info->car_id }}/accident/status">사고이력 확인하기</a>
                         @endif
                     </div>
                 </div>
