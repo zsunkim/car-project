@@ -26,20 +26,18 @@
                 <h1>자동차 상세 정보</h1>
 
                 <div>
-                    @foreach($detail_info as $info)
                     <div class="carDetail">
                         <label>자동차 명</label>
-                        <input type="text" class='name' name="name" id="name" value="{{ $info->name }}" readonly>
+                        <input type="text" class='name' name="name" id="name" value="{{ $detail_info->name }}" readonly required>
                         <label>자동차 색상</label>
-                        <input type="text" class='color' name="color" id="color" value="{{ $info->color }}" readonly>
-                        @if(empty($info->accident_id))
-                            <a href="/cars/{{ $info->car_id }}/accident">사고이력 등록하기</a>
+                        <input type="text" class='color' name="color" id="color" value="{{ $detail_info->color }}" readonly>
+                        @if(empty($detail_info->accident_id))
+                            <a href="/car/{{ $detail_info->car_id }}/accident">사고이력 등록하기</a>
                         @else
                             <label>사고이력</label>
-                            <input type="text" class='accident_status' name="accident_status" id="accident_status" value="{{ $info->accident_status }}" readonly>
+                            <input type="text" class='accident_status' name="accident_status" id="accident_status" value="{{ $detail_info->accident_status }}" readonly>
                         @endif
                     </div>
-                    @endforeach
                 </div>
 
             </div>

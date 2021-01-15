@@ -27,7 +27,7 @@
                 <h1>자동차 사고 등록</h1>
 
                 <div>
-                    <form method="POST" name="accident" action='/cars/{{ $car_id }}/accident'>
+                    <form method="POST" name="accident" action='/car/{{ $car_id }}/accident'>
                         <input type="hidden" class='car_id' name="car_id" id="car_id" value="{{ $car_id }}">
                         <div>
                             <label>사고이력</label>

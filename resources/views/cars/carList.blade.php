@@ -29,7 +29,7 @@
                 <div>
                     @foreach($car_info as $info)
                     <div class="carlist">
-                        <a href="/cars/list/{{ $info->car_id }}/detail">
+                        <a href="/car/list/{{ $info->car_id }}/detail">
                             <label>소유자</label>
                             <input type="text" class='owner' name="owner" id="owner" value="{{ $info->owner }}" readonly>
                             <label>연식</label>
@@ -40,7 +40,7 @@
                     </div>
                     @endforeach
                     <div>
-                        <a href="/cars/carEnroll">자동차 등록하기</a>
+                        <a href="/car/carEnroll">자동차 등록하기</a>
                     </div>
                 </div>
 

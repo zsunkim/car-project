@@ -13,27 +13,31 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// route;;group -> /cars
 // 시작 화면 - 소유자 입력
-Route::get('/', 'App\Http\Controllers\CarController@search');
+Route::get('/', 'CarController@search');
 
-// 소유자 입력 시
-Route::post('/cars/list', 'App\Http\Controllers\CarController@getOwner');
+Route::group(['prefix' => '/car'], function () {
+    // 소유자 입력 시
+    Route::post('/list', 'CarController@getOwner');
 
-// 자동차 디테일 출력 페이지
-Route::get('/cars/list/{car_id}/detail', 'App\Http\Controllers\CarDetailController@getCarDetail')->name('cars.carDetail');
+    // 자동차 디테일 출력 페이지
+    Route::get('/list/{car_id}/detail', 'CarDetailController@getCarDetail');
 
-// 자동차 등록 페이지
-Route::get('/cars/carEnroll', 'App\Http\Controllers\CarController@enrollCar')->name('cars.carEnroll');
-// 자동차 등록 클릭
-Route::post('/cars/carEnroll', 'App\Http\Controllers\CarController@insertCar');
+    // 자동차 등록 페이지
+    Route::get('/carEnroll', 'CarController@enrollCar');
+    // 자동차 등록 클릭
+    Route::post('/carEnroll', 'CarController@insertCar');
 
-// 자동차 디테일 등록 페이지
-Route::get('/cars/carDetailEnroll/{car_id}', 'App\Http\Controllers\CarDetailController@enrollCarDetail')->name('cars.carDetailEnroll');
-// 자동차 디테일 등록 클릭
-Route::post('/cars/carDetailEnroll', 'App\Http\Controllers\CarDetailController@insertCarDetail');
+    // 자동차 디테일 등록 페이지
+    Route::get('/carDetailEnroll/{car_id}', 'CarDetailController@enrollCarDetail');
+    // 자동차 디테일 등록 클릭
+    Route::post('/carDetailEnroll', 'CarDetailController@insertCarDetail');
 
-// 자동차 사고 등록 페이지
-Route::get('/cars/{car_id}/accident', 'App\Http\Controllers\AccidentController@enrollAccident');
-// 자동차 사고 등록 클릭
-Route::post('/cars/{car_id}/accident', 'App\Http\Controllers\AccidentController@insertAccident');
+    // 자동차 사고 등록 페이지
+    Route::get('/{car_id}/accident', 'AccidentController@enrollAccident');
+    // 자동차 사고 등록 클릭
+    Route::post('/{car_id}/accident', 'AccidentController@insertAccident');
+
+});
+

@@ -27,7 +27,7 @@
                 <h1>자동차 등록</h1>
 
                 <div>
-                    <form method="POST" name="carEnroll" action='/cars/carEnroll'>
+                    <form method="POST" name="carEnroll" action='/car/carEnroll'>
                         <div>
                             <label>소유자 이름</label>
                             <input type="text" class='owner' name="owner" id="owner">

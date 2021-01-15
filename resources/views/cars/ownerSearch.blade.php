@@ -28,9 +28,9 @@
                 <h1>소유자 검색</h1>
 
                 <div>
-                    <form method="POST" name="searchForm" action='/cars/list'>
+                    <form method="POST" name="searchForm" action='/car/list'>
                         <div class="ownerInput">
-                            <input type="text" class='owner' name="owner" id="owner" maxlength="10">
+                            <input type="text" class='owner' name="owner" id="owner" maxlength="10" required>
                         </div>
 
                         <div class="btn">
@@ -55,6 +55,7 @@
             return false;
         }
 
+
         var ownerReg = /^[가-힣]{2,10}$/g;
         if(!ownerReg.test(owner.value)) {
             alert("형식에 맞게 입력해주세요.");
@@ -62,6 +63,23 @@
             return false;
         }
 
+        /*
+        $.ajax({
+            type: "POST",
+            url: "/car/list",
+            data: {"owner": owner.value},
+            dataType: "json",
+            success: function(data) {
+                alert(data);
+            },
+            error: function(data) {
+                alert(data+"에러");
+            }
+        });
+        */
+
+
         document.searchForm.submit();
+
     }
 </script>

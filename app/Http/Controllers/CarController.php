@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\CarDetail;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
+use Throwable;
 
 class CarController extends Controller
 {
@@ -20,15 +21,18 @@ class CarController extends Controller
      */
     public function getOwner()
     {
-        $car_cnt = Car::select(DB::raw('count(*) as cnt'))->where('owner', request('owner'))->count();
+        $car_cnt = Car::where('owner', request('owner'))->count();
 
         if ($car_cnt != 0) { //있으면
             $car_info = Car::where('owner', request('owner')) -> get();
-            return view('cars.carList', compact('car_info'));
+            return view('cars.carList', ['car_info' => $car_info]);
+
+            // $result = array();
+            // $result =
+            // return response([$car_info]);
         }
         else if ($car_cnt == 0) { //없으면 등록
-            return redirect() -> route('cars.carEnroll') -> with('alert','등록된 차목록이 없습니다. 등록해주세요.');
-            // return view('')->with('alert','등록된 차목록이 없습니다. 등록해주세요.');
+            return redirect('/car/carEnroll') -> with('alert','등록된 차목록이 없습니다. 등록해주세요.');
         }
 
     }
@@ -41,17 +45,20 @@ class CarController extends Controller
 
 
     /**
+     * db트랜잭션 생성해서 모델 저장까지 하기
      * 등록페이지에서 등록 눌렀을때
      */
-    public function insertCar()
+    public function insertCar(Request $request)
     {
         $car = new Car();
-        $car -> owner = request('owner');
-        $car -> year = request('year');
-        $car -> size = request('size');
-        $car -> save();
-
-        return redirect() -> route('cars.carDetailEnroll') -> with('alert','자동차 디테일을 추가 해주세요.');
+        try{
+            $car->converterModel($request);
+            $result = $car->save();
+            if(!$result) return redirect()->back()->with('alert','저장에 실패했습니다.');
+        } catch(Throwable $e){
+            dd($e->getMessage());
+        }
+        return redirect('/car/carDetailEnroll/'.$car->id)-> with('alert','자동차 상세정보를 입력해주세요.');
 
     }
 
