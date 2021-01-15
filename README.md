@@ -8,4 +8,5 @@ car 테이블, car_detail 테이블, accident 테이블을 연동하여 자동�
 
 
 # 데이터 베이스
+![car_20210115_24_35](https://user-images.githubusercontent.com/66250890/104699783-985d7e00-5756-11eb-9bb0-482111831609.png)
 
