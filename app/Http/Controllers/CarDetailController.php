@@ -54,7 +54,7 @@ class CarDetailController extends Controller
             $car_detail = new CarDetail();
             $car_detail -> insertCarDetail($request);
             $result = $car_detail -> save();
-            if(!$result) return redirect()->back()->with('alert','저장에 실패했습니다.');
+            if(!$result) return redirect('/')->with('alert','저장에 실패했습니다.');
         } catch(Throwable $e) {
             dd($e->getMessage());
         }
