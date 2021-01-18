@@ -54,7 +54,7 @@ class CarController extends Controller
         try{
             $car->converterModel($request);
             $result = $car->save();
-            if(!$result) return redirect()->back()->with('alert','저장에 실패했습니다.');
+            if(!$result) return redirect()->with('alert','저장에 실패했습니다.');
         } catch(Throwable $e){
             dd($e->getMessage());
         }
