@@ -10,7 +10,7 @@ class CarDetail extends Model
     protected $table = 'tb_car_detail';
     public $timestamps = false;
 
-    public function insertCarDetail($request)
+    public function converterCarDetail($request)
     {
 
         $car_cnt = CarDetail::where('car_id', $request->car_id)->count();

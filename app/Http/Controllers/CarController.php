@@ -3,9 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
-use App\Models\CarDetail;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class CarController extends Controller

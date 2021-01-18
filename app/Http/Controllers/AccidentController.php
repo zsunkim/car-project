@@ -3,9 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accident;
-use App\Models\CarDetail;
+use Exception;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Throwable;
 
 class AccidentController extends Controller
@@ -26,11 +25,13 @@ class AccidentController extends Controller
     {
         try {
             $accident = new Accident();
-            $accident -> insertAccident($request);
-            $result = $accident -> save();
-            if (!$result) return redirect('/')->with('alert', '등록이 실패했습니다.');
+            $accident->converterAccident($request);
+            $result = $accident->save();
+
+            if (!$result) throw new Exception("등록을 실패했습니다.");
         } catch(Throwable $e) {
-            dd($e->getMessage());
+            return redirect('/')->with('alert', $e->getMessage());
+            // dd($e->getMessage());
         }
 
         return redirect('/car/list/'.$request->car_id.'/detail') -> with('alert','등록이 완료되었습니다.');
