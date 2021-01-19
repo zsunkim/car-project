@@ -22,7 +22,7 @@ class CarController extends Controller
         $car_cnt = Car::where('owner', request('owner'))->count();
 
         if ($car_cnt != 0) { //있으면
-            $car_info = Car::where('owner', request('owner')) -> get();
+            $car_info = Car::where('owner', request('owner'))->get();
             return view('cars.carList', ['car_info' => $car_info]);
 
             // $result = array();
@@ -30,13 +30,13 @@ class CarController extends Controller
             // return response([$car_info]);
         }
         else if ($car_cnt == 0) { //없으면 등록
-            return redirect('/car/carEnroll') -> with('alert','등록된 차목록이 없습니다. 등록해주세요.');
+            return redirect('/car/create')->with('alert','등록된 차목록이 없습니다. 등록해주세요.');
         }
 
     }
 
     // 자동차 등록 페이지
-    public function enrollCar()
+    public function createCar()
     {
         return view('cars.carEnroll');
     }
@@ -56,7 +56,7 @@ class CarController extends Controller
         } catch(Throwable $e){
             dd($e->getMessage());
         }
-        return redirect('/car/carDetailEnroll/'.$car->id)-> with('alert','자동차 상세정보를 입력해주세요.');
+        return redirect('/car/carDetailEnroll/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
 
     }
 

@@ -24,10 +24,10 @@ Route::group(['prefix' => '/car'], function () {
     // 자동차 디테일 출력 페이지
     Route::get('/list/{car_id}/detail', 'CarDetailController@getCarDetail');
 
-    // 자동차 등록 페이지
-    Route::get('/carEnroll', 'CarController@enrollCar');
+    // 자동차 등록 페이지 이동
+    Route::get('/create', 'CarController@createCar');
     // 자동차 등록 클릭
-    Route::post('/carEnroll', 'CarController@insertCar');
+    Route::post('/', 'CarController@insertCar');
 
     // 자동차 디테일 등록 페이지
     Route::get('/carDetailEnroll/{car_id}', 'CarDetailController@enrollCarDetail');
@@ -41,6 +41,8 @@ Route::group(['prefix' => '/car'], function () {
 
     // 자동차 사고 확인 페이지
     Route::get('/{car_id}/accident/status', 'AccidentController@accidentDetail');
+
+    // Route::
 
 });
 

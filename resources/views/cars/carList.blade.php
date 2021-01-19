@@ -40,7 +40,7 @@
                     </div>
                     @endforeach
                     <div>
-                        <a href="/car/carEnroll">자동차 등록하기</a>
+                        <a href="/car/create">자동차 등록하기</a>
                     </div>
                 </div>
 
