@@ -27,4 +27,9 @@ class CarDetail extends Model
 
         return redirect('/')->with('alert', '아이디 중복');
     }
+
+    public static $rules = [
+        'name' => ['required', 'min:2', 'max:10'],
+        'color' => ['required'],
+    ];
 }

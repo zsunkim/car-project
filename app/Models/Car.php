@@ -20,4 +20,12 @@ class Car extends Model
 
         return $this;
     }
+
+    public static $rules = [
+        'owner' => ['required', 'min:2', 'max:10'],
+        'year' => ['required', 'min:2', 'max:10'],
+        'size' => ['required']
+    ];
+
+
 }

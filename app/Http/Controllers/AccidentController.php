@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accident;
+use App\Models\Car;
+use App\Objects\CarObj;
 use Exception;
 use Illuminate\Http\Request;
 use Throwable;
@@ -23,6 +25,7 @@ class AccidentController extends Controller
     {
         try {
             $accident = new Accident();
+            $this->validate($request, Accident::$rules);
             $accident->converterAccident($request);
             $result = $accident->save();
 
@@ -37,11 +40,9 @@ class AccidentController extends Controller
 
     public function accidentDetail($car_id)
     {
-        $accident_info = Accident::where('car_id', $car_id)->get();
-        $view = view('cars.accidentDetail');
-        $view->accident_info = $accident_info;
-        $view->car_id = $car_id;
-        return $view;
+        $car_obj = new CarObj();
+        $accident_info = $car_obj->getAccident($car_id);
+        return view('cars.accidentDetail', ['accident_info' => $accident_info, 'car_id' => $car_id]);
     }
 
 

@@ -52,6 +52,7 @@ class CarDetailController extends Controller
     {
         try {
             $car_detail = new CarDetail();
+            $this->validate($request, CarDetail::$rules);
             $car_detail -> converterCarDetail($request);
             $result = $car_detail -> save();
             if(!$result) throw new Exception('저장에 실패했습니다.');

@@ -50,6 +50,7 @@ class CarController extends Controller
     {
         $car = new Car();
         try{
+            $this->validate($request, Car::$rules);
             $car->converterModel($request);
             $result = $car->save();
             if(!$result) throw new Exception('저장에 실패했습니다.');
@@ -57,6 +58,17 @@ class CarController extends Controller
             return redirect('/')->with('alert',$e->getMessage());
         }
         return redirect('/car/insertCarDetail/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
+
+    }
+
+    public function validateCar()
+    {
+        $owner = request('owner');
+        $year = request('year');
+        $size = request('size');
+
+
+
 
     }
 
