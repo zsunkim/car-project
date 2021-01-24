@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// route;;group -> /cars
+// route;;group -> /car
 // 시작 화면 - 소유자 입력
 Route::get('/', 'CarController@search');
 
@@ -27,12 +27,12 @@ Route::group(['prefix' => '/car'], function () {
     // 자동차 등록 페이지 이동
     Route::get('/create', 'CarController@createCar');
     // 자동차 등록 클릭
-    Route::post('/', 'CarController@insertCar');
+    Route::post('/create', 'CarController@insertCar');
 
     // 자동차 디테일 등록 페이지
-    Route::get('/carDetailEnroll/{car_id}', 'CarDetailController@enrollCarDetail');
+    Route::get('/insertCarDetail/{car_id}', 'CarDetailController@createCarDetail');
     // 자동차 디테일 등록 클릭
-    Route::post('/carDetailEnroll', 'CarDetailController@insertCarDetail');
+    Route::post('/insertCarDetail', 'CarDetailController@insertCarDetail');
 
     // 자동차 사고 등록 페이지
     Route::get('/{car_id}/accident', 'AccidentController@enrollAccident');

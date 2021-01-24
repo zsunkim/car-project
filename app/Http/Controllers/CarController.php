@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Car;
+use App\Objects\CarObj;
+use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -19,15 +21,13 @@ class CarController extends Controller
      */
     public function getOwner()
     {
-        $car_cnt = Car::where('owner', request('owner'))->count();
+        $car_obj = new CarObj();
+        $car_cnt = $car_obj->getCarCnt(request('owner'));
 
         if ($car_cnt != 0) { //있으면
-            $car_info = Car::where('owner', request('owner'))->get();
+            $car_info = $car_obj->getCar(request('owner'));
             return view('cars.carList', ['car_info' => $car_info]);
 
-            // $result = array();
-            // $result =
-            // return response([$car_info]);
         }
         else if ($car_cnt == 0) { //없으면 등록
             return redirect('/car/create')->with('alert','등록된 차목록이 없습니다. 등록해주세요.');
@@ -38,7 +38,7 @@ class CarController extends Controller
     // 자동차 등록 페이지
     public function createCar()
     {
-        return view('cars.carEnroll');
+        return view('cars.insertCar');
     }
 
 
@@ -52,11 +52,11 @@ class CarController extends Controller
         try{
             $car->converterModel($request);
             $result = $car->save();
-            if(!$result) return redirect()->with('alert','저장에 실패했습니다.');
+            if(!$result) throw new Exception('저장에 실패했습니다.');
         } catch(Throwable $e){
-            dd($e->getMessage());
+            return redirect('/')->with('alert',$e->getMessage());
         }
-        return redirect('/car/carDetailEnroll/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
+        return redirect('/car/insertCarDetail/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
 
     }
 

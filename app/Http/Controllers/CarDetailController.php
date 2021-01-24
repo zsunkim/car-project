@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Accident;
+use App\Models\Car;
 use App\Models\CarDetail;
+use App\Objects\CarObj;
+use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -14,33 +17,32 @@ class CarDetailController extends Controller
      */
     public function getCarDetail($id) // getDetailList
     {
-        $car_cnt = CarDetail::where('car_id', $id)->count();
+        $car_obj = new CarObj();
+        $car_cnt = $car_obj->getCarDetailCnt($id);
 
         if ($car_cnt != 0) {
-            $accident_cnt = Accident::where('car_id', $id)->count(); // object로 빼
+            $accident_cnt = $car_obj->getAccidentCnt($id);
 
             if($accident_cnt != 0) { //사고이력 있으면
-                $detail_info = CarDetail::join('tb_accident', 'tb_car_detail.car_id', '=', 'tb_accident.car_id')
-                    -> where('tb_car_detail.car_id', $id)->first();
-
+                $detail_info = $car_obj->getDetailAccident($id);
                 return view('cars.carDetail', ['detail_info' => $detail_info]);
             }
             else if($accident_cnt == 0) { //사고이력 없으면
-                $detail_info = CarDetail::where('car_id', $id) -> first();
+                $detail_info = $car_obj->getCarDetail($id);
                 return view('cars.carDetail', ['detail_info' => $detail_info]);
             }
 
         }
         else if ($car_cnt == 0) {
-            return redirect('/car/carDetailEnroll/'.$id) -> with('alert','해당 차의 상세정보를 등록해주세요.');
+            return redirect('/car/insertCarDetail/'.$id) -> with('alert','해당 차의 상세정보를 등록해주세요.');
         }
 
     }
 
     // 자동차 디테일 등록 페이지
-    public function enrollCarDetail($car_id)
+    public function createCarDetail($car_id)
     {
-        return view('cars.carDetailEnroll', ['car_id' => $car_id]);
+        return view('cars.insertCarDetail', ['car_id' => $car_id]);
     }
 
     /**
@@ -52,9 +54,10 @@ class CarDetailController extends Controller
             $car_detail = new CarDetail();
             $car_detail -> converterCarDetail($request);
             $result = $car_detail -> save();
-            if(!$result) return redirect('/')->with('alert','저장에 실패했습니다.');
+            if(!$result) throw new Exception('저장에 실패했습니다.');
         } catch(Throwable $e) {
-            dd($e->getMessage());
+            return redirect('/')->with('alert', $e->getMessage());
+            // dd($e->getMessage());
         }
 
         return redirect('/car/list/'.$request->car_id.'/detail') -> with('alert','등록이 완료되었습니다.');

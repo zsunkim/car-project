@@ -13,9 +13,7 @@ class AccidentController extends Controller
     // 사고이력 등록 페이지 이동
     public function enrollAccident($car_id)
     {
-        $view = view('cars.accident');
-        $view->car_id = $car_id;
-        return $view;
+        return view('cars.accident', ['car_id' => $car_id]);;
     }
 
     /**

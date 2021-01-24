@@ -23,11 +23,11 @@
     </head>
     <body>
         <div class="content">
-            <div class="carDetailEnroll">
+            <div class="insertCarDetail">
                 <h1>자동차 디테일 등록</h1>
 
                 <div>
-                    <form method="POST" name="detailForm" action='/car/carDetailEnroll'>
+                    <form method="POST" name="detailForm" action='/car/insertCarDetail'>
                         <input type="hidden" class='car_id' name="car_id" id="car_id" value="{{ $car_id }}">
                         <div>
                             <label>자동차 이름</label>

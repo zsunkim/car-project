@@ -23,11 +23,11 @@
     </head>
     <body>
         <div class="content">
-            <div class="carEnroll">
+            <div class="insertCar">
                 <h1>자동차 등록</h1>
 
                 <div>
-                    <form method="POST" name="carEnroll" action='/car'>
+                    <form method="POST" name="insertCar" action='/car/create'>
                         <div>
                             <label>소유자 이름</label>
                             <input type="text" class='owner' name="owner" id="owner">
@@ -102,6 +102,6 @@
             return false;
         }
 
-        document.carEnroll.submit();
+        document.insertCar.submit();
     }
 </script>

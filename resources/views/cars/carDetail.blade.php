@@ -28,7 +28,7 @@
                 <div>
                     <div class="carDetail">
                         <label>자동차 명</label>
-                        <input type="text" class='name' name="name" id="name" value="{{ $detail_info->name }}" readonly required>
+                        <input type="text" class='name' name="name" id="name" value="{{ $detail_info->name }}" readonly>
                         <label>자동차 색상</label>
                         <input type="text" class='color' name="color" id="color" value="{{ $detail_info->color }}" readonly>
                         @if(empty($detail_info->accident_id))
