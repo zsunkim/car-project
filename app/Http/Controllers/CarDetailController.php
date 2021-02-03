@@ -34,7 +34,7 @@ class CarDetailController extends Controller
 
         }
         else if ($car_cnt == 0) {
-            return redirect('/car/insertCarDetail/'.$id) -> with('alert','해당 차의 상세정보를 등록해주세요.');
+            return redirect('/car/detail/'.$id) -> with('alert','해당 차의 상세정보를 등록해주세요.');
         }
 
     }

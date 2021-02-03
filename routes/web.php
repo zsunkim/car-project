@@ -14,10 +14,15 @@ use Illuminate\Support\Facades\Route;
 */
 
 // route;;group -> /car
+// 카멜케이스 X 동사 X
+
 // 시작 화면 - 소유자 입력
 Route::get('/', 'CarController@search');
 
 Route::group(['prefix' => '/car'], function () {
+    // 소유자 리스트
+    Route::get('/list/{owner}', 'CarController@getList');
+
     // 소유자 입력 시
     Route::post('/list', 'CarController@getOwner');
 
@@ -25,14 +30,14 @@ Route::group(['prefix' => '/car'], function () {
     Route::get('/list/{car_id}/detail', 'CarDetailController@getCarDetail');
 
     // 자동차 등록 페이지 이동
-    Route::get('/create', 'CarController@createCar');
+    Route::get('/', 'CarController@createCar');
     // 자동차 등록 클릭
-    Route::post('/create', 'CarController@insertCar');
+    Route::post('/', 'CarController@insertCar');
 
     // 자동차 디테일 등록 페이지
-    Route::get('/insertCarDetail/{car_id}', 'CarDetailController@createCarDetail');
+    Route::get('/detail/{car_id}', 'CarDetailController@createCarDetail');
     // 자동차 디테일 등록 클릭
-    Route::post('/insertCarDetail', 'CarDetailController@insertCarDetail');
+    Route::post('/detail', 'CarDetailController@insertCarDetail');
 
     // 자동차 사고 등록 페이지
     Route::get('/{car_id}/accident', 'AccidentController@enrollAccident');

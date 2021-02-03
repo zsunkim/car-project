@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Objects\CarObj;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Throwable;
 
 class CarController extends Controller
@@ -25,14 +26,26 @@ class CarController extends Controller
         $car_cnt = $car_obj->getCarCnt(request('owner'));
 
         if ($car_cnt != 0) { //있으면
-            $car_info = $car_obj->getCar(request('owner'));
-            return view('cars.carList', ['car_info' => $car_info]);
-
+            // $car_info = $car_obj->getCar(request('owner'));
+            // return view('cars.carList', ['car_info' => $car_info]);
+            // return redirect('/car/list');
+            return redirect()->action('CarController@getList', ['owner' => request('owner')]);
         }
         else if ($car_cnt == 0) { //없으면 등록
-            return redirect('/car/create')->with('alert','등록된 차목록이 없습니다. 등록해주세요.');
+            return redirect('/car')->with('alert','등록된 차목록이 없습니다. 등록해주세요.');
         }
 
+    }
+
+    public function getList()
+    {
+        // return request('owner');
+        $car_obj = new CarObj();
+        $car_info = $car_obj->getCar(request('owner'));
+
+        // return $car_info;
+        // return view('cars.carList', ['car_info' => $car_info]);
+        return view('cars.carList', compact('car_info'));
     }
 
     // 자동차 등록 페이지
@@ -57,19 +70,9 @@ class CarController extends Controller
         } catch(Throwable $e){
             return redirect('/')->with('alert',$e->getMessage());
         }
-        return redirect('/car/insertCarDetail/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
+        return redirect('/car/detail/'.$car->id)->with('alert','자동차 상세정보를 입력해주세요.');
 
     }
 
-    public function validateCar()
-    {
-        $owner = request('owner');
-        $year = request('year');
-        $size = request('size');
-
-
-
-
-    }
 
 }

@@ -32,8 +32,11 @@ class CarObj
         return $detail_info;
     }
 
-    public function getCar($id) {
-        $car_info = Car::where('owner', request('owner'))->get();
+    public function getCar() {
+        $car_info = collect();
+        // $car_info = Car::where('owner', request('owner'))->get();
+        $car_info = Car::where('owner', request('owner'))->orderBy('car_id', 'desc')->paginate(5);
+
         return $car_info;
     }
 
